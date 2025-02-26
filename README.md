@@ -1,6 +1,3 @@
-# RAG-Critic
-The official code of our paper “RAG-Critic: Leveraging Automated Critic-Guided Agentic Workflow for Retrieval Augmented Generation”
-
 
 
 <p align="center">
@@ -44,7 +41,7 @@ The official code of our paper “RAG-Critic: Leveraging Automated Critic-Guided
 
 [10/2024] PAID is accepted as a conference paper by NeurIPS 2024!
 
-[03/2024] Code and paper are publicly available.
+[03/2025] Code and paper are publicly available.
 
 ## 📑 Abstract
 
