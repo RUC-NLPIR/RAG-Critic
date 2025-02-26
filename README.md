@@ -20,16 +20,15 @@ The official code of our paper “RAG-Critic: Leveraging Automated Critic-Guided
 
 <p align="center">
   <br>
-  <a href="https://scholar.google.com/citations?user=amozZDkAAAAJ&hl=zh-CN" target="_blank">Guanting Dong</a><sup></sup>,&nbsp;
-  <a href="https://scholar.google.com/citations?user=iHCuEo8AAAAJ&hl=zh-CN" target="_blank">Jiajie jin</a><sup></sup>,&nbsp;
-  <a href="https://scholar.google.com/citations?user=XDljV4YAAAAJ&hl=zh-CN" target="_blank">Xiaoxi Li</a><sup></sup>,&nbsp;
-  <a href="https://scholar.google.com/citations?user=tBqVOWsAAAAJ&hl=zh-CN" target="_blank">Yutao Zhu</a><sup></sup>,&nbsp;
-  <a href="http://playbigdata.ruc.edu.cn/dou/" target="_blank">Zhicheng Dou</a><sup>&#x2709</sup>;
-  <a href="https://scholar.google.com/citations?user=tbxCHJgAAAAJ&hl=en" target="_blank">Ji-rong Wen</a><sup></sup>,&nbsp;
-  </sup></a>
+  <a href="https://scholar.google.com/citations?user=amozZDkAAAAJ&hl=zh-CN" target="_blank">Guanting Dong</a>,&nbsp;
+  <a href="https://scholar.google.com/citations?user=iHCuEo8AAAAJ&hl=zh-CN" target="_blank">Jiajie Jin</a>,&nbsp;
+  <a href="https://scholar.google.com/citations?user=XDljV4YAAAAJ&hl=zh-CN" target="_blank">Xiaoxi Li</a>,&nbsp;
+  <a href="https://scholar.google.com/citations?user=tBqVOWsAAAAJ&hl=zh-CN" target="_blank">Yutao Zhu</a>,&nbsp;
+  <a href="http://playbigdata.ruc.edu.cn/dou/" target="_blank">Zhicheng Dou</a>&nbsp;<sup>&#x2709;</sup>;
+  <a href="https://scholar.google.com/citations?user=tbxCHJgAAAAJ&hl=en" target="_blank">Ji-rong Wen</a>
   <br>
   
-  Gaoling School of Artificial Intelligence, Renmin University of China.<sup>2</sup>
+  Gaoling School of Artificial Intelligence, Renmin University of China.
   <br>
   <sup>&#x2709;</sup> Corresponding Author
 </p>
