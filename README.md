@@ -20,12 +20,12 @@ The official code of our paper “RAG-Critic: Leveraging Automated Critic-Guided
 
 <p align="center">
   <br>
-  <a href="https://qy-h00.github.io" target="_blank">Guanting Dong</a><sup>1</sup>,&nbsp;
-  <a href="https://king159.github.io/" target="_blank">Jiajie jin</a><sup>2</sup>,&nbsp;
-  <a href="https://liuziwei7.github.io/" target="_blank">Xiaoxi Li</a><sup>2</sup>,&nbsp;
-  <a href="https://www.comp.nus.edu.sg/~ayao//" target="_blank">Yutao Zhu</a><sup>1,&nbsp;
-  <a href="https://www.comp.nus.edu.sg/~ayao//" target="_blank">Zhicheng Dou</a><sup>1,&#x2709</sup>;
-  <a href="https://www.comp.nus.edu.sg/~ayao//" target="_blank">Ji-rong Wen</a><sup>1,&nbsp;
+  <a href="https://qy-h00.github.io" target="_blank">Guanting Dong</a><sup></sup>,&nbsp;
+  <a href="https://king159.github.io/" target="_blank">Jiajie jin</a><sup></sup>,&nbsp;
+  <a href="https://liuziwei7.github.io/" target="_blank">Xiaoxi Li</a><sup></sup>,&nbsp;
+  <a href="https://www.comp.nus.edu.sg/~ayao//" target="_blank">Yutao Zhu</a><sup></sup>,&nbsp;
+  <a href="https://www.comp.nus.edu.sg/~ayao//" target="_blank">Zhicheng Dou</a><sup>&#x2709</sup>;
+  <a href="https://www.comp.nus.edu.sg/~ayao//" target="_blank">Ji-rong Wen</a><sup></sup>,&nbsp;
   </sup></a>
   <br>
   
