@@ -47,9 +47,10 @@
 
 
 
-🔧 Dependencies
+## 🔧General Setup
 
-**General Setup Environment:**
+
+### Dependencies
 
 Python 3.10.13
 
@@ -63,9 +64,10 @@ vLLM (version 0.6.6.post1)
 pip install -r requirements.txt
 ```
 
-## Dataset Preparation
+### Dataset Preparation
 
 Retrieve top relevant Wikipedia passages using [E5-base-v2](https://arxiv.org/abs/2212.03533) for 9 RAG related datasets in `./dataset_pool_retrieved_top10/${name}` directory. You can find the `train/dev/test`set of preprocessed datasets with top-5 retrieved passages ([here](https://drive.google.com/drive/folders/1qeLQh8IY173MCXga-oHyuwv8Qw2cb0Jf?usp=sharing)). We specify ${dataset} for 9 datasets with ['nq', 'trivaqa', 'hotpotqa','2wikimultihopqa','wikiasp','eli5','asqa', 'fever', 'wow'] in following example commands.
+
 
 
 
@@ -128,49 +130,93 @@ bash error_tag.sh
 
 
 
-We use the version of [LlaMA-Factory v0.6.3](https://github.com/hiyouga/LLaMA-Factory/releases/tag/v0.6.3). Thanks for their excellent work.
+We use the version of [LlaMA-Factory](https://github.com/hiyouga/LLaMA-Factory/releases/tag/v0.6.3). Thanks for their excellent work.
 
-we also release our SFT version dataset as strong baseline in Table1:
-- **SFT Version:** To make a fair comparison with VIF-RAG, we use the same amount of [🤗ShareGPT](https://huggingface.co/datasets/dongguanting/ShareGPT-12K) and [🤗RAG-QA-40K](https://huggingface.co/datasets/dongguanting/RAG-QA-40K) as in VIF-RAG’s data synthesis process, mixing them together to fine-tune (SFT) different baseline models.
+we also release our RAG Error-critic SFT dataset and model weights:
 
-- **VIF-RAG-QA:** We release our SFT datasets, including [🤗VIF-RAG-QA-110K](https://huggingface.co/datasets/dongguanting/VIF-RAG-QA-110K) and [🤗VIF-RAG-QA-20K](https://huggingface.co/datasets/dongguanting/VIF-RAG-QA-20K).
+- SFT数据集： 我们从9个RAG-related数据集，15个模型回复，并结合细粒度错误标签，合成了第一个RAG细粒度错误识别数据集[🤗RAG-Error-Critic-100K](https://huggingface.co/datasets/dongguanting/RAG-Error-Critic-100K)
+- 模型权重： 我们release了我们的RAG错误识别模型，用于细粒度的错误识别 [🤗RAG-Critic-3B](https://huggingface.co/dongguanting/RAG-Critic-3B)
 
+以下展示了我们的细致训练方式：
 
 - **SFT bash:**
   
 ```bash
-deepspeed --num_gpus=8 train_bash.py \
+### model
+model_name_or_path: /path/to/model_zoo/model_name
+
+### method
+stage: sft
+do_train: true
+finetuning_type: full
+deepspeed: /path/to/deepspeed/config.json  # choices: [ds_z0_config.json, ds_z2_config.json, ds_z3_config.json]
+
+### dataset
+dataset: dataset_name
+template: template_name
+cutoff_len: 4096
+max_samples: 100000
+overwrite_cache: true
+preprocessing_num_workers: 16
+
+### output
+output_dir: /path/to/output/directory
+logging_steps: 10
+save_steps: 2000
+plot_loss: true
+overwrite_output_dir: true
+
+### train
+per_device_train_batch_size: 2
+gradient_accumulation_steps: 4
+learning_rate: 1.0e-5
+num_train_epochs: 3.0
+lr_scheduler_type: cosine
+warmup_ratio: 0.1
+bf16: true
+ddp_timeout: 180000000
+
+### eval
+val_size: 0.1
+per_device_eval_batch_size: 1
+eval_strategy: steps
+eval_steps: 500
+```
+
+---
+
+对于DPO数据，请您根据我们文章的设置基于我们的SFT数据集以及Error system进行采样构建，并且使用the previous version of [LlaMA-Factory](https://github.com/hiyouga/LLaMA-Factory/releases/tag/v0.6.3).
+
+- **Coarse-to-Fine DPO bash:**
+
+```bash
+deepspeed --num_gpus 8 train_bash.py \
         --deepspeed $deepspeed_zero3_config_path \
-        --stage sft \
+        --stage dpo \
         --do_train \
-        --use_fast_tokenizer \
-        --flash_attn \
-        --adam_beta1 0.9 \
-        --adam_beta2 0.95 \
         --model_name_or_path $MODEL_PATH \
         --dataset $dataset \
+        --dataset_dir $DATA_PATH \
         --template $Template \
         --finetuning_type full \
         --output_dir $OUTPUT_PATH \
         --overwrite_cache \
         --overwrite_output_dir \
-        --warmup_steps 20 \
-        --weight_decay 0.1 \
-        --per_device_train_batch_size 4 \
-        --gradient_accumulation_steps 4 \
-        --ddp_timeout 9000 \
-        --learning_rate 7e-6 \
-        --lr_scheduler_type "linear" \
-        --logging_steps 1 \
-        --cutoff_len 8192 \
-        --save_steps 200 \
-        --num_train_epochs 3.0 \
+        --cutoff_len 4096 \
+        --preprocessing_num_workers 1 \
+        --per_device_train_batch_size 1 \
+        --gradient_accumulation_steps 2 \
+        --lr_scheduler_type cosine \
+        --logging_steps 10 \
+        --warmup_ratio 0.1 \
+        --save_steps 1000 \
+        --learning_rate 5e-6 \
+        --num_train_epochs 2.0 \
+        --max_samples 200000 \
+        --ddp_timeout 180000000 \
         --plot_loss \
-        --bf16 
+        --fp16
 ```
-
----
-
 
 
 ## Using Critic Agent to Obtain Required Correction Path
