@@ -27,7 +27,9 @@ The official code of our paper “RAG-Critic: Leveraging Automated Critic-Guided
   <a href="http://playbigdata.ruc.edu.cn/dou/" target="_blank">Zhicheng Dou</a>&nbsp;<sup>&#x2709;</sup>;
   <a href="https://scholar.google.com/citations?user=tbxCHJgAAAAJ&hl=en" target="_blank">Ji-rong Wen</a>
   <br>
-  
+</p>
+
+<p align="center">
   Gaoling School of Artificial Intelligence, Renmin University of China.
   <br>
   <sup>&#x2709;</sup> Corresponding Author
