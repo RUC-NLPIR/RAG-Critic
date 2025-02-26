@@ -20,15 +20,16 @@ The official code of our paper “RAG-Critic: Leveraging Automated Critic-Guided
 
 <p align="center">
   <br>
-  <a href="https://qy-h00.github.io" target="_blank">He Qiyuan</a><sup>1</sup>,&nbsp;
-  <a href="https://king159.github.io/" target="_blank">Wang Jinghao</a><sup>2</sup>,&nbsp;
-  <a href="https://liuziwei7.github.io/" target="_blank">Liu Ziwei</a><sup>2</sup>,&nbsp;
-  <a href="https://www.comp.nus.edu.sg/~ayao//" target="_blank">Angela Yao</a><sup>1,&#x2709</sup>;
+  <a href="https://qy-h00.github.io" target="_blank">Guanting Dong</a><sup>1</sup>,&nbsp;
+  <a href="https://king159.github.io/" target="_blank">Jiajie jin</a><sup>2</sup>,&nbsp;
+  <a href="https://liuziwei7.github.io/" target="_blank">Xiaoxi Li</a><sup>2</sup>,&nbsp;
+  <a href="https://www.comp.nus.edu.sg/~ayao//" target="_blank">Yutao Zhu</a><sup>1,&nbsp;
+  <a href="https://www.comp.nus.edu.sg/~ayao//" target="_blank">Zhicheng Dou</a><sup>1,&#x2709</sup>;
+  <a href="https://www.comp.nus.edu.sg/~ayao//" target="_blank">Ji-rong Wen</a><sup>1,&nbsp;
   </sup></a>
   <br>
-  <a herf=https://cvml.comp.nus.edu.sg>Computer Vision & Machine Learning Group, National University of Singapore</a> <sup>1</sup>
-  <br>
-  S-Lab, Nanyang Technological University <sup>2</sup>
+  
+  Gaoling School of Artificial Intelligence, Renmin University of China.<sup>2</sup>
   <br>
   <sup>&#x2709;</sup> Corresponding Author
 </p>
