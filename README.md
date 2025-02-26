@@ -48,6 +48,7 @@
 
 
 🔧 Dependencies
+
 **General Setup Environment:**
 
 Python 3.10.13
@@ -62,14 +63,19 @@ pip install -r requirements.txt
 
 ## Dataset Preparation
 
+Retrieve top relevant Wikipedia passages using [E5-base-v2](https://arxiv.org/abs/2212.03533) for 9 RAG related datasets in ./datasets/${name} directory. You can find the `train/dev/test`set of preprocessed datasets with top-5 retrieved passages ([here]()). We specify ${name} for 9 datasets with ['nq', 'trivaqa', 'hotpotqa','2wikimultihopqa','wikiasp','eli5','asqa', 'fever', 'wow'] in following example commands.
 
+
+
+<details>
+<summary>🔍 Click here! if you are want to reproduce our RAG error mining pipeline.</summary>
 
 
 ### Step1: Error Response Sampling
 
 
 
-
+</details>
 
 ## Using Critic Agent to Obtain Required Correction Path
 
