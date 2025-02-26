@@ -44,15 +44,72 @@
 [03/2025] Code and paper are publicly available.
 
 
+## Hierarchical Error System Construction
+
+
+🔧 Dependencies
+
+**General Setup Environment:**
+
+Python 3.10.13
+
+PyTorch (currently tested on version 2.5.1+cu124)
+
+Transformers (version 4.47.1, unlikely to work lower than this version]
+
+vLLM (version 0.6.6.post1)
+
+```bash
+pip install -r requirements.txt
+```
+
+## Dataset Preparation
+
+Retrieve top relevant Wikipedia passages using [E5-base-v2](https://arxiv.org/abs/2212.03533) for 9 RAG related datasets in `./datasets/${name}` directory. You can find the `train/dev/test`set of preprocessed datasets with top-5 retrieved passages ([here]()). We specify ${name} for 9 datasets with ['nq', 'trivaqa', 'hotpotqa','2wikimultihopqa','wikiasp','eli5','asqa', 'fever', 'wow'] in following example commands.
+
+
+
+<details>
+<summary>🔍 Click here! if you are want to reproduce our RAG error mining pipeline.</summary>
+
+
+### Step1: Error Response Sampling
+首先请在huggingface官网下载采样模型（参考附录Table9，15个），并将这些模型名放置在models参数中，之后对9个RAG-related datasets进行全面回复采样：
+```bash
+cd ./error_system_construction/
+bash sample.sh
+```
+采样的输出数据将保存在`error_sampling_results/responses_${model}_${dataset}_train_1w.json`路径下。
+
+### Step-2: Critical Annotation & Tagging
+
+1. Critical Annotation
+之后对采样出的包含Chain of thought response使用strong supervision model (Qwen2.5-72B)进行错误原因分析
+首先请在huggingface官网下载采样模型（参考附录Table9，15个），之后对9个RAG-related datasets进行全面回复采样：
+```bash
+bash critic.sh
+```
+采样的源数据与错误分析将保存在`error_critic_results/critic_${model}_${dataset}_train_1w.json`路径下。
+
+2. Tagging
+
+收到Instag的prompt模板的启发，我们进一步对RAG的错误分析结果，进行细粒度，open set的标签标注：
+
+```bash
+bash error_tag.sh
+```
+采样的出的open set tags将保存在`error_critic_results/critic_${model}_${dataset}_train_1w.json`路径下。
+
+### Step-3: Error Label Summarization.
+
+首先我们请遵循文中的方式对tag set进行去重复，正则化。之后请参考层次聚类方法进行RAG错误簇聚集，具体请参考xxx
 
 
 
 
+</details>
 
-
-
-
-# Using Critic Agent to Obtain Required Correction Path
+## Using Critic Agent to Obtain Required Correction Path
 
 ## Preparation
 
