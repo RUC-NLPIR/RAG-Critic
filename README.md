@@ -44,7 +44,7 @@
 [03/2025] Code and paper are publicly available.
 
 
-## Hierarchical Error System Construction
+
 
 
 🔧 Dependencies
@@ -65,12 +65,27 @@ pip install -r requirements.txt
 
 ## Dataset Preparation
 
-Retrieve top relevant Wikipedia passages using [E5-base-v2](https://arxiv.org/abs/2212.03533) for 9 RAG related datasets in `./datasets/${name}` directory. You can find the `train/dev/test`set of preprocessed datasets with top-5 retrieved passages ([here]()). We specify ${name} for 9 datasets with ['nq', 'trivaqa', 'hotpotqa','2wikimultihopqa','wikiasp','eli5','asqa', 'fever', 'wow'] in following example commands.
+Retrieve top relevant Wikipedia passages using [E5-base-v2](https://arxiv.org/abs/2212.03533) for 9 RAG related datasets in `./dataset_pool_retrieved_top10/${name}` directory. You can find the `train/dev/test`set of preprocessed datasets with top-5 retrieved passages ([here](https://drive.google.com/drive/folders/1qeLQh8IY173MCXga-oHyuwv8Qw2cb0Jf?usp=sharing)). We specify ${dataset} for 9 datasets with ['nq', 'trivaqa', 'hotpotqa','2wikimultihopqa','wikiasp','eli5','asqa', 'fever', 'wow'] in following example commands.
 
+
+
+
+## Hierarchical Error System Construction
+
+We devise a three-step pipeline for error response mining and annotation, establishing a hierarchical RAG error categorization system. 
+
+### Overview  
+
+<img width="868" alt="image" src="https://github.com/user-attachments/assets/596eb45d-9193-4f8e-9f4e-e7911d2c2acd" />
+
+如上图，我们共包含7 个1st-tier labels，19个2nd-tier labels, 以及4000+个三级标签，以下是详细的呈现：
+
+1. 细致的Hierarchical Error System展示 [here](https://github.com/dongguanting/RAG-Critic/blob/main/all_tags_structure_final.json)
+2. open-set错误标签的频率统计（[here](https://github.com/dongguanting/RAG-Critic/blob/main/error_tag_frequent.txt)）
 
 
 <details>
-<summary>🔍 Click here! if you are want to reproduce our RAG error mining pipeline.</summary>
+<summary>🔍 Click here! If you are want to reproduce our RAG error response mining and annotation.</summary>
 
 
 ### Step1: Error Response Sampling
@@ -102,12 +117,61 @@ bash error_tag.sh
 
 ### Step-3: Error Label Summarization.
 
-首先我们请遵循文中的方式对tag set进行去重复，正则化。之后请参考层次聚类方法进行RAG错误簇聚集，具体请参考xxx
-
-
-
+首先我们请遵循文中的方式对tag set进行去重复，正则化。之后请参考层次聚类方法进行RAG错误簇聚集，具体请参考 [cluster.ipynb](https://github.com/dongguanting/RAG-Critic/blob/main/error_system_construction/cluster.ipynb)。
+进一步的，请使用GPT4-o与人工对错误簇进行进一步的上层标签总结
 
 </details>
+
+
+
+## RAG Error-Critic Alignment
+
+
+
+We use the version of [LlaMA-Factory v0.6.3](https://github.com/hiyouga/LLaMA-Factory/releases/tag/v0.6.3). Thanks for their excellent work.
+
+we also release our SFT version dataset as strong baseline in Table1:
+- **SFT Version:** To make a fair comparison with VIF-RAG, we use the same amount of [🤗ShareGPT](https://huggingface.co/datasets/dongguanting/ShareGPT-12K) and [🤗RAG-QA-40K](https://huggingface.co/datasets/dongguanting/RAG-QA-40K) as in VIF-RAG’s data synthesis process, mixing them together to fine-tune (SFT) different baseline models.
+
+- **VIF-RAG-QA:** We release our SFT datasets, including [🤗VIF-RAG-QA-110K](https://huggingface.co/datasets/dongguanting/VIF-RAG-QA-110K) and [🤗VIF-RAG-QA-20K](https://huggingface.co/datasets/dongguanting/VIF-RAG-QA-20K).
+
+
+- **SFT bash:**
+  
+```bash
+deepspeed --num_gpus=8 train_bash.py \
+        --deepspeed $deepspeed_zero3_config_path \
+        --stage sft \
+        --do_train \
+        --use_fast_tokenizer \
+        --flash_attn \
+        --adam_beta1 0.9 \
+        --adam_beta2 0.95 \
+        --model_name_or_path $MODEL_PATH \
+        --dataset $dataset \
+        --template $Template \
+        --finetuning_type full \
+        --output_dir $OUTPUT_PATH \
+        --overwrite_cache \
+        --overwrite_output_dir \
+        --warmup_steps 20 \
+        --weight_decay 0.1 \
+        --per_device_train_batch_size 4 \
+        --gradient_accumulation_steps 4 \
+        --ddp_timeout 9000 \
+        --learning_rate 7e-6 \
+        --lr_scheduler_type "linear" \
+        --logging_steps 1 \
+        --cutoff_len 8192 \
+        --save_steps 200 \
+        --num_train_epochs 3.0 \
+        --plot_loss \
+        --bf16 
+```
+
+---
+
+
 
 ## Using Critic Agent to Obtain Required Correction Path
 
