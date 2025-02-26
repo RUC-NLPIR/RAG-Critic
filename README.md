@@ -44,15 +44,34 @@
 [03/2025] Code and paper are publicly available.
 
 
+## Hierarchical Error System Construction
+
+
+🔧 Dependencies
+**General Setup Environment:**
+
+Python 3.10.13
+
+PyTorch (currently tested on version 2.5.1+cu124)
+
+Transformers (version 4.47.1, unlikely to work lower than this version
+
+```bash
+pip install -r requirements.txt
+```
+
+## Dataset Preparation
+
+
+
+
+### Step1: Error Response Sampling
 
 
 
 
 
-
-
-
-# Using Critic Agent to Obtain Required Correction Path
+## Using Critic Agent to Obtain Required Correction Path
 
 ## Preparation
 
