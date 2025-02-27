@@ -72,13 +72,14 @@ Retrieve the top relevant Wikipedia passages using [E5-base-v2](https://arxiv.or
 
 ## ✨ Hierarchical Error System Construction
 
-We introduce our RAG error categorization system and a three-step pipeline for error response mining and annotation.
+We introduce our RAG error categorization system and a three-step pipeline for error response annotation.
 
 ### Overview  
 
+As shown in the image below, we have a total of 7 first-tier labels, 19 second-tier labels, and over 2000 third-tier labels. Here are the details:
+
 <img width="868" alt="image" src="https://github.com/user-attachments/assets/596eb45d-9193-4f8e-9f4e-e7911d2c2acd" />
 
-As shown in the image above, we have a total of 7 first-tier labels, 19 second-tier labels, and over 2000 third-tier labels. Here are the details:
 
 1. **Hierarchical Error System** ([here](https://github.com/dongguanting/RAG-Critic/blob/main/all_tags_structure_final.json)).
 2. **Frequency error statistics of labels** ([here](https://github.com/dongguanting/RAG-Critic/blob/main/error_tag_frequent.txt)).
