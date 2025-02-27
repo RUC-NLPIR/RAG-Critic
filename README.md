@@ -303,7 +303,7 @@ We introduces the RAG-Error benchmark, which aims to make prediction judgment an
 ### 📊 Test Cases
 
 <details>
-<summary>🔍 Click here! if you are curious about FollowRAG‘s test cases.</summary>
+<summary>🔍 Click here! if you are curious about RAG-Error benchmark‘s test cases.</summary>
 
 **Key-Value Introduction:**
 
@@ -340,7 +340,7 @@ bash test_open_llm.sh
 bash test_close_llm.sh 
 ```
 
-The format of each sample in your ‘RAG-Critic/rag_error_bench/test_data/baseline_test.json’ should be consistent with the following form:
+The format of each sample in your ‘RAG-Critic/rag_error_bench/test_data/baseline_test.json’ are in the following form:
 <img width="614" alt="image" src="https://github.com/user-attachments/assets/4c19a234-c6d1-415c-9a4a-2e34afefafa5" />
 
 
@@ -350,8 +350,10 @@ After completing the inference, run the evaluation script:
 ```bash
 python ./rag_error_bench/caculate_acc.py
 ```
-最终，我们会生成RAG-Error bench的详细结果，如下格式：
+Finally, we will provide detailed evaluation metric results of the RAG-Error bench in the following format:
 
+<details>
+<summary>🔍 Here we illustrate the RAG-Error benchmark‘s evaluation metrics.</summary>
 ```json
 
 {
@@ -629,7 +631,7 @@ python ./rag_error_bench/caculate_acc.py
 }
 
 ```
-
+</details>
 
 
 ## 📜 License
