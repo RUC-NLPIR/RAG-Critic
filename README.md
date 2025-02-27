@@ -34,7 +34,7 @@
 
 ## 📌 Release
 
-[03/2025] We add RAG-Critic demo to further improve clearness, try `demo.ipynb`!
+[03/2025] We add RAG-Critic demo to further improve clearness, try [`demo.ipynb`](https://github.com/dongguanting/RAG-Critic/blob/main/demo.ipynb)!
 
 [03/2025] We release our huggingface dataset [🤗RAG-Error-Critic-100K](https://huggingface.co/datasets/dongguanting/RAG-Error-Critic-100K) and Critic model [🤗RAG-Critic-3B](https://huggingface.co/dongguanting/RAG-Critic-3B)
 
@@ -131,7 +131,7 @@ We release our RAG Error-Critic SFT dataset, model weights and demo:
 
 - **Model Weights:** We released our RAG error identification model [🤗RAG-Critic-3B](https://huggingface.co/dongguanting/RAG-Critic-3B).
 
-- **Demo:** We release the huggingface inference demo of our RAG-Critic model [here]()
+- **Demo:** We release the huggingface inference demo of our RAG-Critic model [here](https://github.com/dongguanting/RAG-Critic/blob/main/demo.ipynb)
 
 The following shows our detailed training procedure:
 
