@@ -299,7 +299,7 @@ python run_exp.sh
 
 ## RAG-Error Bench
 
-We introduce the RAG-Error benchmark, aiming to make prediction judgment and fine-grained error recognitio.
+We introduce the RAG-Error benchmark, aiming to make prediction judgment and fine-grained error recognition.
 
 ![image](https://github.com/user-attachments/assets/97c9a569-5712-499e-bcc3-d04df06ea307)
 
@@ -309,8 +309,8 @@ We introduce the RAG-Error benchmark, aiming to make prediction judgment and fin
 
 **Key-Value Introduction:**
 
-- **Input:** User query + Top-K Document + LLM's prediction + 1st-tier error tag sets+ 2nd-tier erro tag sets
-- **Output:** Judgement, 1st-tier error tag sets (selected), 2nd-tier erro tag sets (selected)
+- **Input:** User query + Top-K Document + LLM's prediction + 1st-tier error tag set + 2nd-tier erro tag set
+- **Output:** Judgement + 1st-tier error tag sets (selected) + 2nd-tier erro tag sets (selected)
 
 
 ```json
