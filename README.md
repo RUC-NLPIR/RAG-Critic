@@ -1,8 +1,6 @@
 <p align="center">
-<img src="https://github.com/user-attachments/assets/ec1bad0f-c28a-4238-83b8-cc9b487a6790" alt="rag-critic" style="width: 80%; height: auto;">
+<img src="https://github.com/user-attachments/assets/ec1bad0f-c28a-4238-83b8-cc9b487a6790" alt="rag-critic" style="width: 70%; height: auto;">
 </p>
-![rag-critic](https://github.com/user-attachments/assets/ec1bad0f-c28a-4238-83b8-cc9b487a6790)
-
 
 
 ### <div align="center">RAG-Critic: Leveraging Automated Critic-Guided Agentic Workflow for Retrieval Augmented Generation<div>
