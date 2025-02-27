@@ -68,7 +68,7 @@ We design a three-step pipeline for error response mining and annotation, establ
 
 As shown in the image above, we have a total of 7 first-tier labels, 19 second-tier labels, and over 4000 third-tier labels. Here are the details:
 
-1. Detailed presentation of the Hierarchical Error System [here](https://github.com/dongguanting/RAG-Critic/blob/main/all_tags_structure_final.json).
+1. Detailed presentation of the Hierarchical Error System ([here](https://github.com/dongguanting/RAG-Critic/blob/main/all_tags_structure_final.json)).
 2. Frequency statistics of open-set error labels ([here](https://github.com/dongguanting/RAG-Critic/blob/main/error_tag_frequent.txt)).
 
 <details>
