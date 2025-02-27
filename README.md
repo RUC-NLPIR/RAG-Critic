@@ -85,6 +85,9 @@ As shown in the image above, we have a total of 7 first-tier labels, 19 second-t
 <details>
 <summary>🔍 Click here! If you want to reproduce our RAG error response mining and annotation.</summary>
 
+<img width="872" alt="image" src="https://github.com/user-attachments/assets/7b5c424b-1cb2-4048-83e4-a34c5ac3d3ef" />
+
+
 ### Step 1: Error Response Sampling
 First, please download the sampling models from Hugging Face (refer to Appendix Table 9 -- 15 models), and place these model names in the models parameter. Then, perform comprehensive response sampling on the 9 RAG-related datasets:
 ```bash
@@ -115,7 +118,7 @@ The output data will be saved at `error_sampling_results/responses_${model}_${da
 
 First, please follow the methods in the document to deduplicate and normalize the tag set. Then, refer to the hierarchical clustering method for aggregating RAG error clusters, as detailed in [cluster.ipynb](https://github.com/dongguanting/RAG-Critic/blob/main/error_system_construction/cluster.ipynb). 
 
-Furthermore, use GPT-4-o and human input for higher-level label summarization of the error clusters.
+Furthermore, use GPT-4o and human for higher-level label summarization of the error clusters.
 
 </details>
 
