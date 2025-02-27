@@ -369,79 +369,302 @@ You first need to perform inference on RAG-Error bench, and the command is as fo
 ```bash
 cd ./rag_error_bench/
 
-# evaluate open-sourced LLM
+# Evaluate open-sourced LLM
 bash test_open_llm.sh
 
-# evaluate close-source LLM like GPT-4o and Claude
+# Evaluate close-source LLM like GPT-4o, Deepseek R1 and Claude 3.5
 bash test_close_llm.sh 
 ```
-Please refer to the following template to prepare your result JSON files for subsequent evaluation. 
-The format of each sample in your data_inferenced.jsonl should be consistent with the following form:
-```json
 
-{
-    "key": 0,
-    "type": "ifnq",
-    "prompt": "Given the following information: \nPassage-0 Title: Gravity Content: and prevents further acceleration. The force of gravity on Earth is the resultant (vector sum) of two forces: (a) The gravitational attraction in accordance with Newton's universal law of gravitation, and (b) the centrifugal force, which results from the choice of an earthbound, rotating frame of reference. The force of gravity is the weakest at the equator because of the centrifugal force caused by the Earth's rotation and because points on the equator are furthest from the center of the Earth. The force of gravity varies with latitude and increases from about 9.780 m/s at the Equator to about 9.832\nPassage-1 Title: Gravitational acceleration Content: Gravitational acceleration In physics, gravitational acceleration is the acceleration on an object caused by the force of gravitation. Neglecting friction such as air resistance, all small bodies accelerate in a gravitational field at the same rate relative to the center of mass. This equality is true regardless of the masses or compositions of the bodies. At different points on Earth, objects fall with an acceleration between and depending on altitude and latitude, with a conventional standard value of exactly 9.80665 m/s (approximately 32.174 ft/s). This does not take into account other effects, such as buoyancy or drag. Newton's law of\nPassage-2 Title: Gravity Content: Gravity Gravity (), or gravitation, is a natural phenomenon by which all things with mass or energy—including planets, stars, galaxies, and even light—are brought toward (or \"gravitate\" toward) one another. On Earth, gravity gives weight to physical objects, and the Moon's gravity causes the ocean tides. The gravitational attraction of the original gaseous matter present in the Universe caused it to begin coalescing, forming starsand for the stars to group together into galaxiesso gravity is responsible for many of the large-scale structures in the Universe. Gravity has an infinite range, although its effects become increasingly weaker on farther objects. Gravity\n\nAnswer the following question based on the given information or your internal knowledge with one or few words without the source.\nQuestion: What is the common name for gravitational force? In this task, repeat the exact request first, then give your response. Do not say any word before repeating the exact request. Moreover, your answer must contain a title, wrapped in double angular brackets, i.e. <<title>>. Ensure the word disappointed appears at least twice. Finally, provide your answer with less than 200 words.",
-    "question": "what is the common name for gravitational force",
-    "answer_gold": "Gravity/Gravity, or gravitation",
-    "question_with_instrs": "What is the common name for gravitational force? In this task, repeat the exact request first, then give your response. Do not say any word before repeating the exact request. Moreover, your answer must contain a title, wrapped in double angular brackets, i.e. <<title>>. Ensure the word disappointed appears at least twice. Finally, provide your answer with less than 200 words.",
-    "instruction_id_list": [
-        "combination:repeat_prompt",
-        "detectable_format:title",
-        "keywords:frequency",
-        "length_constraints:number_words"
-    ],
-    "kwargs": [
-        {
-            "prompt_to_repeat": "What is the common name for gravitational force?"
-        },
-        {
+The format of each sample in your ‘RAG-Critic/rag_error_bench/test_data/baseline_test.json’ should be consistent with the following form:
+<img width="614" alt="image" src="https://github.com/user-attachments/assets/4c19a234-c6d1-415c-9a4a-2e34afefafa5" />
 
-        },
-        {
-            "relation": "at least",
-            "keyword": "disappointed",
-            "frequency": 2
-        },
-        {
-            "relation": "less than",
-            "num_words": 200
-        }
-    ],
-    "passages": [
-        {
-            "title": "Gravity",
-            "content": "and prevents further acceleration. The force of gravity on Earth is the resultant (vector sum) of two forces: (a) The gravitational attraction in accordance with Newton's universal law of gravitation, and (b) the centrifugal force, which results from the choice of an earthbound, rotating frame of reference. The force of gravity is the weakest at the equator because of the centrifugal force caused by the Earth's rotation and because points on the equator are furthest from the center of the Earth. The force of gravity varies with latitude and increases from about 9.780 m/s at the Equator to about 9.832"
-        },
-        {
-            "title": "Gravitational acceleration",
-            "content": "Gravitational acceleration In physics, gravitational acceleration is the acceleration on an object caused by the force of gravitation. Neglecting friction such as air resistance, all small bodies accelerate in a gravitational field at the same rate relative to the center of mass. This equality is true regardless of the masses or compositions of the bodies. At different points on Earth, objects fall with an acceleration between and depending on altitude and latitude, with a conventional standard value of exactly 9.80665 m/s (approximately 32.174 ft/s). This does not take into account other effects, such as buoyancy or drag. Newton's law of"
-        },
-        {
-            "title": "Gravity",
-            "content": "Gravity Gravity (), or gravitation, is a natural phenomenon by which all things with mass or energy—including planets, stars, galaxies, and even light—are brought toward (or \"gravitate\" toward) one another. On Earth, gravity gives weight to physical objects, and the Moon's gravity causes the ocean tides. The gravitational attraction of the original gaseous matter present in the Universe caused it to begin coalescing, forming starsand for the stars to group together into galaxiesso gravity is responsible for many of the large-scale structures in the Universe. Gravity has an infinite range, although its effects become increasingly weaker on farther objects. Gravity"
-        }
-    ],
-    "response": "What is the common name for gravitational force? \n\n<<Gravity>>\n\nThe common name for gravitational force is \"gravity.\" It is often disappointing to realize how misunderstood this fundamental force can be, as people frequently overlook its complexities. Many assume that gravity acts uniformly across the globe, but the actual gravitational acceleration varies depending on location—grounded by factors such as latitude and altitude. \n\nFor instance, a commonly cited value is 9.80665 m/s², yet we can be disappointed to discover that at the equator, gravity is slightly weaker due to centrifugal forces caused by the Earth's rotation. This leads to significant implications in both physics and everyday life, yet many remain uninformed about these nuances. \n\nUnderstanding gravity is essential not only for grasping the movement of objects on Earth but also for comprehending cosmic phenomena. It is disappointing when people take gravity for granted, missing the fascinating science behind how it governs numerous aspects of our universe."
-}
-
-```
 
 
 ### 📝 Evaluation
 After completing the inference, run the evaluation script:
 ```bash
-export OPENAI_API_KEY=your_openai_api_key
-export OPENAI_API_BASE=https://api.openai.com/v1
-python eval/main_eval.py \
-    --input_file_path results/finish_inference/data_inferenced.jsonl \
-    --output_file_path results/finish_eval/data_evaled.jsonl \
-    --rag_eval_type mini \
-    --result_log_file_path results/logs/results_log.jsonl
+python ./rag_error_bench/caculate_acc.py
 ```
-Our evaluation of instruction-following part largely draws on the [IFEval code repository](https://github.com/google-research/google-research/tree/master/instruction_following_eval). We appreciate their excellent work!
+最终，我们会生成RAG-Error bench的详细结果，如下格式：
 
+```json
+
+{
+  "overall": {
+    "accuracy": 0.1194,  #Overall Acc.
+    "f1": 0.1781,    #Overall F1
+    "rouge": {
+      "rouge-1": 0.4707,
+      "rouge-2": 0.2361,
+      "rouge-l": 0.4359
+    },
+    "judgement_accuracy": 0.6895,  #Overall Judgment
+    "correct_judgement_accuracy": 0.9526,   #Overall judgement of correct prediction
+    "tag1": {
+      "accuracy": 0.1741,  #Overall Tag1 Acc.
+      "f1": 0.2567,    #Overall Tag2 F1 Acc.
+      "rouge": {
+        "rouge-1": 0.4707,
+        "rouge-2": 0.2361,
+        "rouge-l": 0.4359
+      },
+      "judgement_accuracy": 0.4221   #Overall judgement of error prediction
+    },
+    "tag2": {
+      "accuracy": 0.0647,   #Overall Tag2 Acc.
+      "f1": 0.0995,    #Overall Tag2 F1 Acc.
+      "rouge": {
+        "rouge-1": 0.4707,
+        "rouge-2": 0.2361,
+        "rouge-l": 0.4359
+      },
+      "judgement_accuracy": 0.4221
+    }
+  },
+  "category_metrics": {    #Coarse-grained Error Tags Acc.
+    "tag1": {
+      "Incomplete Information": {
+        "accuracy": 0.2077,
+        "f1": 0.2961,
+        "rouge": {
+          "rouge-1": 0.4707,
+          "rouge-2": 0.2361,
+          "rouge-l": 0.4359
+        }
+      },
+      "Irrelevant Information": {
+        "accuracy": 0.1289,
+        "f1": 0.1968,
+        "rouge": {
+          "rouge-1": 0.4707,
+          "rouge-2": 0.2361,
+          "rouge-l": 0.4359
+        }
+      },
+      "Erroneous Information": {
+        "accuracy": 0.036,
+        "f1": 0.0541,
+        "rouge": {
+          "rouge-1": 0.4707,
+          "rouge-2": 0.2361,
+          "rouge-l": 0.4359
+        }
+      },
+      "Incomplete or Missing Response": {
+        "accuracy": 0.1618,
+        "f1": 0.2585,
+        "rouge": {
+          "rouge-1": 0.4707,
+          "rouge-2": 0.2361,
+          "rouge-l": 0.4359
+        }
+      },
+      "Inaccurate or Misunderstood Response": {
+        "accuracy": 0.273,
+        "f1": 0.3803,
+        "rouge": {
+          "rouge-1": 0.4707,
+          "rouge-2": 0.2361,
+          "rouge-l": 0.4359
+        }
+      },
+      "Irrelevant or Off-Topic Response": {
+        "accuracy": 0.0103,
+        "f1": 0.0188,
+        "rouge": {
+          "rouge-1": 0.4707,
+          "rouge-2": 0.2361,
+          "rouge-l": 0.4359
+        }
+      },
+      "Overly Verbose Response": {
+        "accuracy": 0.4259,
+        "f1": 0.2771,
+        "rouge": {
+          "rouge-1": 0.4707,
+          "rouge-2": 0.2361,
+          "rouge-l": 0.4359
+        }
+      }
+    },
+    "tag2": {
+      "Insufficient or Incomplete Information Retrieval": {
+        "accuracy": 0.2028,
+        "f1": 0.2677,
+        "rouge": {
+          "rouge-1": 0.4707,
+          "rouge-2": 0.2361,
+          "rouge-l": 0.4359
+        }
+      },
+      "Data Insufficiency in Retrieval": {
+        "accuracy": 0.0053,
+        "f1": 0.0106,
+        "rouge": {
+          "rouge-1": 0.4707,
+          "rouge-2": 0.2361,
+          "rouge-l": 0.4359
+        }
+      },
+      "Relevance Gaps in Retrieval": {
+        "accuracy": 0.2483,
+        "f1": 0.2483,
+        "rouge": {
+          "rouge-1": 0.4707,
+          "rouge-2": 0.2361,
+          "rouge-l": 0.4359
+        }
+      },
+      "Irrelevant Information Retrieval": {
+        "accuracy": 0.0,
+        "f1": 0,
+        "rouge": {
+          "rouge-1": 0.4707,
+          "rouge-2": 0.2361,
+          "rouge-l": 0.4359
+        }
+      },
+      "Erroneous Information Retrieval": {
+        "accuracy": 0.036,
+        "f1": 0.0543,
+        "rouge": {
+          "rouge-1": 0.4707,
+          "rouge-2": 0.2361,
+          "rouge-l": 0.4359
+        }
+      },
+      "Omission of Key Information": {
+        "accuracy": 0.1565,
+        "f1": 0.1513,
+        "rouge": {
+          "rouge-1": 0.4707,
+          "rouge-2": 0.2361,
+          "rouge-l": 0.4359
+        }
+      },
+      "Lack of Specificity": {
+        "accuracy": 0.0,
+        "f1": 0,
+        "rouge": {
+          "rouge-1": 0.4707,
+          "rouge-2": 0.2361,
+          "rouge-l": 0.4359
+        }
+      },
+      "Specificity and Precision Errors": {
+        "accuracy": 0.0,
+        "f1": 0,
+        "rouge": {
+          "rouge-1": 0.4707,
+          "rouge-2": 0.2361,
+          "rouge-l": 0.4359
+        }
+      },
+      "Partial Coverage and Temporal Issues": {
+        "accuracy": 0.0,
+        "f1": 0,
+        "rouge": {
+          "rouge-1": 0.4707,
+          "rouge-2": 0.2361,
+          "rouge-l": 0.4359
+        }
+      },
+      "Lack of Practicality": {
+        "accuracy": 0.0,
+        "f1": 0,
+        "rouge": {
+          "rouge-1": 0.4707,
+          "rouge-2": 0.2361,
+          "rouge-l": 0.4359
+        }
+      },
+      "Contextual Understanding Errors": {
+        "accuracy": 0.1971,
+        "f1": 0.1843,
+        "rouge": {
+          "rouge-1": 0.4707,
+          "rouge-2": 0.2361,
+          "rouge-l": 0.4359
+        }
+      },
+      "Factual Inaccuracies": {
+        "accuracy": 0.0186,
+        "f1": 0.0348,
+        "rouge": {
+          "rouge-1": 0.4707,
+          "rouge-2": 0.2361,
+          "rouge-l": 0.4359
+        }
+      },
+      "Incorrect and Incomplete Answers": {
+        "accuracy": 0.0073,
+        "f1": 0.0143,
+        "rouge": {
+          "rouge-1": 0.4707,
+          "rouge-2": 0.2361,
+          "rouge-l": 0.4359
+        }
+      },
+      "Misinterpretation of Queries and Information": {
+        "accuracy": 0.0693,
+        "f1": 0.0676,
+        "rouge": {
+          "rouge-1": 0.4707,
+          "rouge-2": 0.2361,
+          "rouge-l": 0.4359
+        }
+      },
+      "Entity and Concept Confusion": {
+        "accuracy": 0.0089,
+        "f1": 0.0171,
+        "rouge": {
+          "rouge-1": 0.4707,
+          "rouge-2": 0.2361,
+          "rouge-l": 0.4359
+        }
+      },
+      "Irrelevant Content and Topic Drift": {
+        "accuracy": 0.0125,
+        "f1": 0.0185,
+        "rouge": {
+          "rouge-1": 0.4707,
+          "rouge-2": 0.2361,
+          "rouge-l": 0.4359
+        }
+      },
+      "Off-Topic and Redundant Responses": {
+        "accuracy": 0.0,
+        "f1": 0,
+        "rouge": {
+          "rouge-1": 0.4707,
+          "rouge-2": 0.2361,
+          "rouge-l": 0.4359
+        }
+      },
+      "Content and Context Misalignment": {
+        "accuracy": 0.0,
+        "f1": 0,
+        "rouge": {
+          "rouge-1": 0.4707,
+          "rouge-2": 0.2361,
+          "rouge-l": 0.4359
+        }
+      },
+      "Overly Complex and Redundant Response": {
+        "accuracy": 0.4259,
+        "f1": 0.2788,
+        "rouge": {
+          "rouge-1": 0.4707,
+          "rouge-2": 0.2361,
+          "rouge-l": 0.4359
+        }
+      }
+    }
+  }
+}
+
+```
 
 
 
