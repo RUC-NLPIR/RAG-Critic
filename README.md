@@ -321,7 +321,6 @@ We introduce the RAG-Error benchmark, aiming to make prediction judgment and fin
 
 
 
-
 ### 🔑 Inference
 You first need to perform inference on RAG-Error bench, and the command is as follows:
 ```bash
@@ -334,7 +333,7 @@ bash test_open_llm.sh
 bash test_close_llm.sh 
 ```
 
-The format of each sample in your ‘RAG-Critic/rag_error_bench/test_data/baseline_test.json’ are in the following form:
+The format of each sample in your `RAG-Critic/rag_error_bench/test_data/baseline_test.json` are in the following form:
 <img width="614" alt="image" src="https://github.com/user-attachments/assets/4c19a234-c6d1-415c-9a4a-2e34afefafa5" />
 
 
@@ -346,7 +345,7 @@ After completing the inference, run the evaluation script:
 python ./rag_error_bench/caculate_acc.py
 ```
 
-Note that you need to replace the input and output sections of 'caculate_acc.py'.
+Note that you need to replace the input and output sections of `caculate_acc.py`.
 
 <details>
 <summary>🔍 Here, we provide detailed evaluation metric results of the RAG-Error bench in the following format.</summary>
