@@ -140,7 +140,7 @@ def get_rouge_scores(golden_text, output_text):
             "rouge-l": 0.0
         }
 
-file_path = '/share/project/dgt/rag_error_bench/error_sample_results/predict_qwen-2.5-7b-instruct_predict_1900_130.json'  # 替换为你待测模型的predict JSON 文件路径
+file_path = 'your_path_to_result/predict_qwen-2.5-7b-instruct_predict_1900_130.json'  # change to the path of your predict JSON
 
 # 初始化总体指标统计
 total_stats = {
