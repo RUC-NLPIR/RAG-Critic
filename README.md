@@ -121,9 +121,7 @@ Furthermore, use GPT-4-o and human input for higher-level label summarization of
 
 ## 🚗 RAG Error-Critic Alignment
 
-We use the version of [LlaMA-Factory](https://github.com/hiyouga/LLaMA-Factory/releases/tag/v0.6.3). Thanks to their excellent work.
-
-We also release our RAG Error-Critic SFT dataset and model weights:
+We release our RAG Error-Critic SFT dataset and model weights:
 
 - **SFT Dataset:** We synthesize the first fine-grained error identification dataset, [🤗RAG-Error-Critic-100K](https://huggingface.co/datasets/dongguanting/RAG-Error-Critic-100K), by combining responses from 15 models across 9 RAG-related datasets with fine-grained error labels.
 
@@ -177,7 +175,7 @@ eval_steps: 500
 
 ---
 
-For DPO data, please construct it based on our SFT dataset and error system settings, using the previous version of [LlaMA-Factory](https://github.com/hiyouga/LLaMA-Factory/releases/tag/v0.6.3).
+For DPO data, please construct it based on our SFT dataset and error system settings (Section 3.2), using the previous version of [LlaMA-Factory](https://github.com/hiyouga/LLaMA-Factory/releases/tag/v0.6.3).
 
 - **Coarse-to-Fine DPO bash:**
 
@@ -213,9 +211,10 @@ deepspeed --num_gpus 8 train_bash.py \
 
 ## Critic-Guiided Agentic Workflow
 
+### Data Preparation
 
 <details>
-<summary>🔍 Click here to reproduce Top-k passages retrieval process for test set.</summary>
+<summary>🔍 Click here to generate the test set.</summary>
 
 Firstly, using critic agent to obtain required correction path
 
@@ -293,7 +292,7 @@ python run_exp.sh
 
 ## RAG-Error Bench
 
-We introduces the RAG-Error benchmark, which aims to make prediction judgment and fine-grained error recognition in RAG.
+We introduce the RAG-Error benchmark, aiming to make prediction judgment and fine-grained error recognition in RAG.
 
 
 ![image](https://github.com/user-attachments/assets/97c9a569-5712-499e-bcc3-d04df06ea307)
@@ -302,14 +301,10 @@ We introduces the RAG-Error benchmark, which aims to make prediction judgment an
 
 ### 📊 Test Cases
 
-<details>
-<summary>🔍 Click here! if you are curious about RAG-Error benchmark‘s test cases.</summary>
-
 **Key-Value Introduction:**
 
 - **Input:** including three parts: User query + Top-K Document + LLM's prediction + 1st-tier error tag sets (all) + 2nd-tier erro tag sets (all)
 - **Output:** Judgement, 1st-tier error tag sets (selected), 2nd-tier erro tag sets (selected)
-
 
 
 ```json
@@ -323,7 +318,6 @@ We introduces the RAG-Error benchmark, which aims to make prediction judgment an
     ]
 }
 ```
-</details>
 
 
 
@@ -347,13 +341,15 @@ The format of each sample in your ‘RAG-Critic/rag_error_bench/test_data/baseli
 
 ### 📝 Evaluation
 After completing the inference, run the evaluation script:
+
 ```bash
 python ./rag_error_bench/caculate_acc.py
 ```
-Finally, we will provide detailed evaluation metric results of the RAG-Error bench in the following format:
+
+Note that you need to replace the input and output sections of 'caculate_acc.py'.
 
 <details>
-<summary>🔍 Here we illustrate the RAG-Error benchmark‘s evaluation metrics.</summary>
+<summary>🔍 Here, we provide detailed evaluation metric results of the RAG-Error bench in the following format.</summary>
 
 ```json
 {
