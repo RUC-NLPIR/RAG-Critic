@@ -217,7 +217,7 @@ deepspeed --num_gpus 8 train_bash.py \
 
 
 <details>
-<summary>🔍 Click here to reproduce Top-k passages retrieval process.</summary>
+<summary>🔍 Click here to reproduce Top-k passages retrieval process for test set.</summary>
 
 Firstly, using critic agent to obtain required correction path
 
@@ -295,10 +295,11 @@ python run_exp.sh
 
 ## RAG-Error Bench
 
+We introduces the RAG-Error benchmark, which aims to make prediction judgment and fine-grained error recognition in RAG.
 
-FollowRAG is the first benchmark designed to comprehensively evaluate LLM’s complex instruction-following abilities in RAG. 
 
-<img width="1070" alt="image" src="https://github.com/user-attachments/assets/91a5e7ac-d828-46f2-bcae-96886f7ef295">
+![image](https://github.com/user-attachments/assets/97c9a569-5712-499e-bcc3-d04df06ea307)
+
 
 
 ### 📊 Test Cases
@@ -365,15 +366,15 @@ FollowRAG is the first benchmark designed to comprehensively evaluate LLM’s co
 
 
 ### 🔑 Inference
-You first need to perform inference on followRAG, and the pseudocode is as follows:
-```python
-followRAG_full=load_json('followRAG/followRAG_full.json')
-data_inferenced=[]
-for dp in followRAG_full:
-    response=llm.inference(dp['prompt'])
-    dp['response']=response
-    data_inferenced.append(dp)
-save_jsonl(data_inferenced,'results/finish_inference/data_inferenced.jsonl')
+You first need to perform inference on RAG-Error bench, and the command is as follows:
+```bash
+cd ./rag_error_bench/
+
+# evaluate open-sourced LLM
+bash test_open_llm.sh
+
+# evaluate close-source LLM like GPT-4o and Claude
+bash test_close_llm.sh 
 ```
 Please refer to the following template to prepare your result JSON files for subsequent evaluation. 
 The format of each sample in your data_inferenced.jsonl should be consistent with the following form:
