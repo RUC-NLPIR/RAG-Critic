@@ -128,7 +128,7 @@ We release our RAG Error-Critic SFT dataset and model weights:
 
 - **SFT Dataset:** We synthesize the first fine-grained error identification dataset, [🤗RAG-Error-Critic-100K](https://huggingface.co/datasets/dongguanting/RAG-Error-Critic-100K), by combining responses from 15 models across 9 RAG-related datasets with fine-grained error labels.
 
-- **Model Weights:** We released our RAG error identification model [🤗RAG-Critic-3B](https://huggingface.co/dongguanting/RAG-Critic-3B) for fine-grained error recognition.
+- **Model Weights:** We released our RAG error identification model [🤗RAG-Critic-3B](https://huggingface.co/dongguanting/RAG-Critic-3B).
 
 The following shows our detailed training procedure:
 
