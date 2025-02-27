@@ -36,7 +36,7 @@
 
 [03/2025] We add RAG-Critic demo to further improve clearness, try `demo.ipynb`!
 
-[03/2025] We release our huggingface SFT dataset [🤗RAG-Error-Critic-100K](https://huggingface.co/datasets/dongguanting/RAG-Error-Critic-100K) and Critic model [🤗RAG-Critic-3B](https://huggingface.co/dongguanting/RAG-Critic-3B)
+[03/2025] We release our huggingface dataset [🤗RAG-Error-Critic-100K](https://huggingface.co/datasets/dongguanting/RAG-Error-Critic-100K) and Critic model [🤗RAG-Critic-3B](https://huggingface.co/dongguanting/RAG-Critic-3B)
 
 [03/2025] Code and paper are publicly available.
 
@@ -80,8 +80,8 @@ We design a three-step pipeline for error response mining and annotation, establ
 
 As shown in the image above, we have a total of 7 first-tier labels, 19 second-tier labels, and over 4000 third-tier labels. Here are the details:
 
-1. Detailed presentation of the **hierarchical error system** ([here](https://github.com/dongguanting/RAG-Critic/blob/main/all_tags_structure_final.json)).
-2. **Frequency error statistics** of open-set error labels ([here](https://github.com/dongguanting/RAG-Critic/blob/main/error_tag_frequent.txt)).
+1. **Hierarchical Error System** ([here](https://github.com/dongguanting/RAG-Critic/blob/main/all_tags_structure_final.json)).
+2. **Frequency error statistics of labels** ([here](https://github.com/dongguanting/RAG-Critic/blob/main/error_tag_frequent.txt)).
 
 <details>
 <summary>🔍 Click here! If you want to reproduce our RAG error response mining and annotation.</summary>
@@ -114,7 +114,9 @@ The output data will be saved at `error_sampling_results/responses_${model}_${da
 
 ### Step 3: Error Label Summarization
 
-First, please follow the methods in the document to deduplicate and normalize the tag set. Then, refer to the hierarchical clustering method for aggregating RAG error clusters, as detailed in [cluster.ipynb](https://github.com/dongguanting/RAG-Critic/blob/main/error_system_construction/cluster.ipynb). Furthermore, use GPT-4-o and human input for higher-level label summarization of the error clusters.
+First, please follow the methods in the document to deduplicate and normalize the tag set. Then, refer to the hierarchical clustering method for aggregating RAG error clusters, as detailed in [cluster.ipynb](https://github.com/dongguanting/RAG-Critic/blob/main/error_system_construction/cluster.ipynb). 
+
+Furthermore, use GPT-4-o and human input for higher-level label summarization of the error clusters.
 
 </details>
 
@@ -124,8 +126,9 @@ We use the version of [LlaMA-Factory](https://github.com/hiyouga/LLaMA-Factory/r
 
 We also release our RAG Error-Critic SFT dataset and model weights:
 
-- **SFT Dataset:** We synthesized the first fine-grained error identification dataset, [🤗RAG-Error-Critic-100K](https://huggingface.co/datasets/dongguanting/RAG-Error-Critic-100K), by combining responses from 15 models across 9 RAG-related datasets with fine-grained error labels.
-- **Model Weights:** We released our RAG error identification model for fine-grained error recognition, [🤗RAG-Critic-3B](https://huggingface.co/dongguanting/RAG-Critic-3B).
+- **SFT Dataset:** We synthesize the first fine-grained error identification dataset, [🤗RAG-Error-Critic-100K](https://huggingface.co/datasets/dongguanting/RAG-Error-Critic-100K), by combining responses from 15 models across 9 RAG-related datasets with fine-grained error labels.
+
+- **Model Weights:** We released our RAG error identification model [🤗RAG-Critic-3B](https://huggingface.co/dongguanting/RAG-Critic-3B) for fine-grained error recognition.
 
 The following shows our detailed training procedure:
 
@@ -278,7 +281,7 @@ After downloading the necessary files, you need to fill in the file paths into t
 
 
 
-## Usage
+### Usage
 
 `plan_agent.py` and `execute_agent.py` respectively provide the Critic's planning and execution. The running scripts are in `run_exp.sh`. After running, the evaluation results and intermediate variables will be stored in the corresponding folder under `save_dir`.
 
@@ -288,6 +291,11 @@ You can directly run the following command to execute the Critic Agent:
 cd ./critic_agent/
 python run_exp.sh
 ```
+
+
+## RAG-Error Bench
+
+
 
 
 
@@ -303,26 +311,7 @@ Our dataset are distributed under the [CC BY-NC 4.0](https://creativecommons.org
 Please cite our work if you find the repository helpful.
 
 ```
-@article{dong2024general,
-  author       = {Guanting Dong and
-                  Xiaoshuai Song and
-                  Yutao Zhu and
-                  Runqi Qiao and
-                  Zhicheng Dou and
-                  Ji{-}Rong Wen},
-  title        = {Toward General Instruction-Following Alignment for Retrieval-Augmented
-                  Generation},
-  journal      = {CoRR},
-  volume       = {abs/2410.09584},
-  year         = {2024},
-  url          = {https://doi.org/10.48550/arXiv.2410.09584},
-  doi          = {10.48550/ARXIV.2410.09584},
-  eprinttype    = {arXiv},
-  eprint       = {2410.09584},
-  timestamp    = {Fri, 22 Nov 2024 21:38:25 +0100},
-  biburl       = {https://dblp.org/rec/journals/corr/abs-2410-09584.bib},
-  bibsource    = {dblp computer science bibliography, https://dblp.org}
-}
+
 ```
 
 
@@ -333,167 +322,7 @@ Please cite our work if you find the repository helpful.
 
 
 
-
-
-
-
-
-## 📑 Abstract
-
-<b>TL;DR: <font color="red">AID</font> (Attention Interpolation via Diffusion)</b> is a training-free method that enables the text-to-image diffusion model to generate interpolation between different conditions with high consistency, smoothness and fidelity. Its variant, <font color="blue">PAID</font>, provides further control of the interpolation via prompt guidance.
-
-<details><summary>CLICK for the full abstract</summary>
-Conditional diffusion models can create unseen images in various settings, aiding image interpolation. Interpolation in latent spaces is well-studied, but interpolation with specific conditions like text or poses is less understood. Simple approaches, such as linear interpolation in the space of conditions, often result in images that lack consistency, smoothness, and fidelity. To that end, we introduce a novel training-free technique named Attention Interpolation via Diffusion (AID). Our key contributions include 1) proposing an inner/outer interpolated attention layer; 2) fusing the interpolated attention with self-attention to boost fidelity; and 3) applying beta distribution to selection to increase smoothness. We also present a variant, Prompt-guided Attention Interpolation via Diffusion (PAID), that considers interpolation as a condition-dependent generative process. This method enables the creation of new images with greater consistency, smoothness, and efficiency, and offers control over the exact path of interpolation. Our approach demonstrates effectiveness for conceptual and spatial interpolation.
-</details>
-
-## ▶️ PAID Results
-
-<p align="center">
-<img src="sdxl_results/aesthetic/3.jpg">
-</p>
-
-<p align="center">
-<img src="sdxl_results/anime/3.jpg">
-</p>
-
-<p align="center">
-<img src="sdxl_results/photorealistic/1.jpg">
-</p>
-
-<details><summary>CLICK for more results </summary>
-
-#### Aesthetic
-
-<p align="center">
-<img src="sdxl_results/aesthetic/2.jpg">
-</p>
-
-<p align="center">
-<img src="sdxl_results/aesthetic/4.jpg">
-</p>
-
-#### Anime
-
-<p align="center">
-<img src="sdxl_results/anime/1.jpg">
-</p>
-
-<p align="center">
-<img src="sdxl_results/anime/2.jpg">
-</p>
-
-#### Photorealistic
-
-<p align="center">
-<img src="sdxl_results/photorealistic/2.jpg">
-</p>
-
-<p align="center">
-<img src="sdxl_results/photorealistic/3.jpg">
-</p>
-
-</details>
-
-## 📷 Application
-
-<p align="center">
-<img src="asset/applications.png">
-</p>
-
-### Compositional Generation
-
-Given a prompt that involves multiple components (e.g., "A dog driving a car"), we use the compositional description as a guidance prompt, with each related component (e.g., "A dog" and "A car") serving as the prompts at endpoints for interpolation. Under this setting, we apply PAID and then select the image from the interpolation sequence that achieves the highest CLIP score with respect to the compositional description.
-
-<p align="center">
-<img src="asset/composition.png">
-</p>
-
-### Image Editing
-
-We can use [P2P](https://github.com/google/prompt-to-prompt) or [EDICT](https://github.com/salesforce/EDICT) to firstly inverse the generation process of given image, and then set the endpoint condition as the original prompt and the edting prompt, respectively, to control the editing level of images.
-
-<p align="center">
-<img src="asset/editing.png">
-</p>
-
-### Image Morphing
-
-Using IP-Adapter, we set the two images as the condition at the endpoints of the interpolation sequence for image morphing. Notice that the text prompt can be further added to refine the generated images at the endpoints.
-
-<p align="center">
-<img src="sdxl_results/morph/1.jpg">
-</p>
-
-<p align="center">
-<img src="sdxl_results/morph/2.jpg">
-</p>
-
-### Image-Control generation
-
-Given a text prompt and an image, we can better control the scale of IP-Adapter by AID. To achieve this, we set one endpoint as only using text prompt as condition while the other endpoint using both text and image condition. This provides smoother control over the scale of IP-Adapter.
-
-<p align="center">
-<img src="sdxl_results/scale_control/1.jpg">
-</p>
-
-## 🏍️ Google Colab
-
-Directly try PAID with [Stable Diffusion 2.1](https://colab.research.google.com/drive/1qU62G-EkcGZKSL3QRfQZQZzRuqaF94sB?usp=sharing) or [SDXL](https://colab.research.google.com/drive/1D2myS9UF241gx1otp-fy-LRakMZlROCT?usp=sharing) using Google's Free GPU!
-
-## 🚗 Local Setup using Jupyter Notebook
-
-1. Clone the repository and install the requirements:
-
-``` bash
-git clone https://github.com/QY-H00/attention-interpolation-diffusion.git
-cd attention-interpolation-diffusion
-pip install requirements.txt
-```
-
-2. Go to `play.ipynb` or `play_sdxl.ipynb` for fun!
-
-## 🛳️ Local Setup using Gradio
-
-1. install Gradio
-
-``` bash
-pip install gradio
-```
-
-2. Launch the Gradio interface
-
-``` bash
-gradio gradio_src/app.py
-```
-
-
-## 📝 Supporting Models
-
-| Model Name            |  Link                                             |
-|-----------------------|-------------------------------------------------------------|
-| Stable Diffusion 1.5-512  | [stable-diffusion-v1-5/stable-diffusion-v1-5](https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-v1-5)   |
-| Realistic Vision V4.0 | [SG161222/Realistic_Vision_V4.0_noVAE](https://huggingface.co/SG161222/Realistic_Vision_V4.0_noVAE) |
-| Stable Diffusion 2.1-768  | [stabilityai/stable-diffusion-2-1](https://huggingface.co/stabilityai/stable-diffusion-2-1) |
-| Stable Diffusion XL-1024   | [stabilityai/stable-diffusion-xl-base-1.0](https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0) |
-| Animagine XL 3.1 |   [cagliostrolab/animagine-xl-3.1](https://huggingface.co/cagliostrolab/animagine-xl-3.1)|
-| Realistic Vision XL V4.0 | [SG161222/RealVisXL_V5.0](https://huggingface.co/SG161222/RealVisXL_V5.0) |
-| Playground v2.5 – 1024 | [playgroundai/playground-v2.5-1024px-aesthetic](https://huggingface.co/playgroundai/playground-v2.5-1024px-aesthetic) |
-| Juggernaut XL v9 | [RunDiffusion/Juggernaut-XL-v9](https://huggingface.co/RunDiffusion/Juggernaut-XL-v9) |
-
-
-## ✒️Citation
-
-If you found this repository/our paper useful, please consider citing:
-
-``` bibtex
-@article{he2024aid,
-  title={AID: Attention Interpolation of Text-to-Image Diffusion},
-  author={He, Qiyuan and Wang, Jinghao and Liu, Ziwei and Yao, Angela},
-  journal={arXiv preprint arXiv:2403.17924},
-  year={2024}
-}
-```
 
 ## ❤️ Acknowledgement
 
-We thank the following repositories for their great work: [diffusers](https://github.com/huggingface/diffusers), [transformers](https://github.com/huggingface/transformers), [IP-Adapter](https://github.com/tencent-ailab/IP-Adapter), [P2P](https://github.com/google/prompt-to-prompt) and [EDICT](https://github.com/salesforce/EDICT).
+We thank the following repositories for their great work: [FlashRAG](https://github.com/RUC-NLPIR/FlashRAG), [transformers](https://github.com/huggingface/transformers), [Llama-Factory](https://github.com/hiyouga/LLaMA-Factory) and [FollowRAG](https://github.com/dongguanting/FollowRAG).
