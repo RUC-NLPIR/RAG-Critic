@@ -55,8 +55,20 @@ pip install -r requirements.txt
 ```
 
 ### 📝 2. Dataset Preparation
+Since the Critic Agent is built on [FlashRAG framework](https://github.com/RUC-NLPIR/FlashRAG), you need to install FlashRAG first.
+
+```bash
+# install flashrag
+pip install flashrag-dev[full] --pre
+# install faiss
+conda install -c pytorch faiss-cpu=1.8.0
+```
 
 Retrieve the top relevant Wikipedia passages using [E5-base-v2](https://arxiv.org/abs/2212.03533) for 9 RAG-related datasets, stored in the `./dataset_pool_retrieved_top10/${name}` directory. You can find the `train/dev/test` sets of preprocessed datasets with the top 5 retrieved passages [here](https://drive.google.com/drive/folders/1qeLQh8IY173MCXga-oHyuwv8Qw2cb0Jf?usp=sharing). We specify ${dataset} for 9 datasets: ['nq', 'triviaqa', 'hotpotqa', '2wikimultihopqa', 'wikiasp', 'eli5', 'asqa', 'fever', 'wow'] in the following example commands.
+
+
+
+
 
 ## Hierarchical Error System Construction
 
@@ -200,9 +212,11 @@ deepspeed --num_gpus 8 train_bash.py \
 ## Critic-Guiided Agentic Workflow
 
 
-### Preparation
 
-Firstly, uising critic agent to obtain required correction path
+<details>
+<summary>🔍 Click here to reproduce Top-k passages retrieval process.</summary>
+
+Firstly, using critic agent to obtain required correction path
 
 **Step 1: Install Required Frameworks**
 
@@ -259,8 +273,12 @@ After downloading the necessary files, you need to fill in the file paths into t
 
 - method2index
 - corpus_path
+</details>
 
-**Step 5: Usage**
+
+
+
+## Usage
 
 `plan_agent.py` and `execute_agent.py` respectively provide the Critic's planning and execution. The running scripts are in `run_exp.sh`. After running, the evaluation results and intermediate variables will be stored in the corresponding folder under `save_dir`.
 
