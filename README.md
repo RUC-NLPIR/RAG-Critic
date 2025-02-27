@@ -33,32 +33,22 @@
 </p>
 
 ## 📌 Release
-[10/2024] We are now supporting various application including compositional generation, image morphing, image editing and image-control generation (based on IP-Adapter), try `play_sdxl_application.ipynb` and `play_sd.ipynb`. It's also available in our Hugging Face Space [AID-v2](https://huggingface.co/spaces/qyoo/AID-v2). Have fun!
 
-[10/2024] We are now supporting interpolating between images via [IP-Adapter](https://github.com/tencent-ailab/IP-Adapter)!
+[03/2025] We add RAG-Critic demo to further improve clearness, try `demo.ipynb`!
 
-[10/2024] We add dynamic selection pipeline to further improve smoothness, try `play_sdxl_trial.ipynb`!
-
-[10/2024] PAID is accepted as a conference paper by NeurIPS 2024!
+[03/2025] We release our huggingface SFT dataset [🤗RAG-Error-Critic-100K](https://huggingface.co/datasets/dongguanting/RAG-Error-Critic-100K) and Critic model [🤗RAG-Critic-3B](https://huggingface.co/dongguanting/RAG-Critic-3B)
 
 [03/2025] Code and paper are publicly available.
 
 
-
-
-
-## 🔧General Setup
-
+## 🔧 General Setup
 
 ### Dependencies
 
-Python 3.10.13
-
-PyTorch (currently tested on version 2.5.1+cu124)
-
-Transformers (version 4.47.1, unlikely to work lower than this version]
-
-vLLM (version 0.6.6.post1)
+- Python 3.10.13
+- PyTorch (currently tested on version 2.5.1+cu124)
+- Transformers (version 4.47.1, unlikely to work below this version)
+- vLLM (version 0.6.6.post1)
 
 ```bash
 pip install -r requirements.txt
@@ -66,78 +56,64 @@ pip install -r requirements.txt
 
 ### Dataset Preparation
 
-Retrieve top relevant Wikipedia passages using [E5-base-v2](https://arxiv.org/abs/2212.03533) for 9 RAG related datasets in `./dataset_pool_retrieved_top10/${name}` directory. You can find the `train/dev/test`set of preprocessed datasets with top-5 retrieved passages ([here](https://drive.google.com/drive/folders/1qeLQh8IY173MCXga-oHyuwv8Qw2cb0Jf?usp=sharing)). We specify ${dataset} for 9 datasets with ['nq', 'trivaqa', 'hotpotqa','2wikimultihopqa','wikiasp','eli5','asqa', 'fever', 'wow'] in following example commands.
-
-
-
-
+Retrieve the top relevant Wikipedia passages using [E5-base-v2](https://arxiv.org/abs/2212.03533) for 9 RAG-related datasets, stored in the `./dataset_pool_retrieved_top10/${name}` directory. You can find the `train/dev/test` sets of preprocessed datasets with the top 5 retrieved passages [here](https://drive.google.com/drive/folders/1qeLQh8IY173MCXga-oHyuwv8Qw2cb0Jf?usp=sharing). We specify ${dataset} for 9 datasets: ['nq', 'triviaqa', 'hotpotqa', '2wikimultihopqa', 'wikiasp', 'eli5', 'asqa', 'fever', 'wow'] in the following example commands.
 
 ## Hierarchical Error System Construction
 
-We devise a three-step pipeline for error response mining and annotation, establishing a hierarchical RAG error categorization system. 
+We design a three-step pipeline for error response mining and annotation, establishing a hierarchical RAG error categorization system.
 
 ### Overview  
 
 <img width="868" alt="image" src="https://github.com/user-attachments/assets/596eb45d-9193-4f8e-9f4e-e7911d2c2acd" />
 
-如上图，我们共包含7 个1st-tier labels，19个2nd-tier labels, 以及4000+个三级标签，以下是详细的呈现：
+As shown in the image above, we have a total of 7 first-tier labels, 19 second-tier labels, and over 4000 third-tier labels. Here are the details:
 
-1. 细致的Hierarchical Error System展示 [here](https://github.com/dongguanting/RAG-Critic/blob/main/all_tags_structure_final.json)
-2. open-set错误标签的频率统计（[here](https://github.com/dongguanting/RAG-Critic/blob/main/error_tag_frequent.txt)）
-
+1. Detailed presentation of the Hierarchical Error System [here](https://github.com/dongguanting/RAG-Critic/blob/main/all_tags_structure_final.json).
+2. Frequency statistics of open-set error labels ([here](https://github.com/dongguanting/RAG-Critic/blob/main/error_tag_frequent.txt)).
 
 <details>
-<summary>🔍 Click here! If you are want to reproduce our RAG error response mining and annotation.</summary>
+<summary>🔍 Click here! If you want to reproduce our RAG error response mining and annotation.</summary>
 
-
-### Step1: Error Response Sampling
-首先请在huggingface官网下载采样模型（参考附录Table9，15个），并将这些模型名放置在models参数中，之后对9个RAG-related datasets进行全面回复采样：
+### Step 1: Error Response Sampling
+First, please download the sampling models from Hugging Face (refer to Appendix Table 9, 15 models), and place these model names in the models parameter. Then, perform comprehensive response sampling on the 9 RAG-related datasets:
 ```bash
 cd ./error_system_construction/
 bash sample.sh
 ```
-采样的输出数据将保存在`error_sampling_results/responses_${model}_${dataset}_train_1w.json`路径下。
+The output data will be saved at `error_sampling_results/responses_${model}_${dataset}_train_1w.json`.
 
-### Step-2: Critical Annotation & Tagging
+### Step 2: Critical Annotation & Tagging
 
-1. Critical Annotation
-之后对采样出的包含Chain of thought response使用strong supervision model (Qwen2.5-72B)进行错误原因分析
-首先请在huggingface官网下载采样模型（参考附录Table9，15个），之后对9个RAG-related datasets进行全面回复采样：
-```bash
-bash critic.sh
-```
-采样的源数据与错误分析将保存在`error_critic_results/critic_${model}_${dataset}_train_1w.json`路径下。
+1. **Critical Annotation**  
+   Analyze the reasons for errors using the strong supervision model (Qwen2.5-72B) on the sampled data containing Chain of Thought responses. First, download the sampling models from Hugging Face (refer to Appendix Table 9, 15 models), then perform comprehensive response sampling on the 9 RAG-related datasets:
+   ```bash
+   bash critic.sh
+   ```
+   The source data and error analysis will be saved at `error_critic_results/critic_${model}_${dataset}_train_1w.json`.
 
-2. Tagging
+2. **Tagging**  
+   Inspired by the Instag prompt template, we further annotate the RAG error analysis results with fine-grained, open-set labels:
+   ```bash
+   bash error_tag.sh
+   ```
+   The sampled open-set tags will be saved at `error_critic_results/critic_${model}_${dataset}_train_1w.json`.
 
-收到Instag的prompt模板的启发，我们进一步对RAG的错误分析结果，进行细粒度，open set的标签标注：
+### Step 3: Error Label Summarization
 
-```bash
-bash error_tag.sh
-```
-采样的出的open set tags将保存在`error_critic_results/critic_${model}_${dataset}_train_1w.json`路径下。
-
-### Step-3: Error Label Summarization.
-
-首先我们请遵循文中的方式对tag set进行去重复，正则化。之后请参考层次聚类方法进行RAG错误簇聚集，具体请参考 [cluster.ipynb](https://github.com/dongguanting/RAG-Critic/blob/main/error_system_construction/cluster.ipynb)。
-进一步的，请使用GPT4-o与人工对错误簇进行进一步的上层标签总结
+First, please follow the methods in the document to deduplicate and normalize the tag set. Then, refer to the hierarchical clustering method for aggregating RAG error clusters, as detailed in [cluster.ipynb](https://github.com/dongguanting/RAG-Critic/blob/main/error_system_construction/cluster.ipynb). Furthermore, use GPT-4-o and human input for higher-level label summarization of the error clusters.
 
 </details>
 
-
-
 ## RAG Error-Critic Alignment
 
+We use the version of [LlaMA-Factory](https://github.com/hiyouga/LLaMA-Factory/releases/tag/v0.6.3). Thanks to their excellent work.
 
+We also release our RAG Error-Critic SFT dataset and model weights:
 
-We use the version of [LlaMA-Factory](https://github.com/hiyouga/LLaMA-Factory/releases/tag/v0.6.3). Thanks for their excellent work.
+- **SFT Dataset:** We synthesized the first fine-grained error identification dataset, [🤗RAG-Error-Critic-100K](https://huggingface.co/datasets/dongguanting/RAG-Error-Critic-100K), by combining responses from 15 models across 9 RAG-related datasets with fine-grained error labels.
+- **Model Weights:** We released our RAG error identification model for fine-grained error recognition, [🤗RAG-Critic-3B](https://huggingface.co/dongguanting/RAG-Critic-3B).
 
-we also release our RAG Error-critic SFT dataset and model weights:
-
-- SFT数据集： 我们从9个RAG-related数据集，15个模型回复，并结合细粒度错误标签，合成了第一个RAG细粒度错误识别数据集[🤗RAG-Error-Critic-100K](https://huggingface.co/datasets/dongguanting/RAG-Error-Critic-100K)
-- 模型权重： 我们release了我们的RAG错误识别模型，用于细粒度的错误识别 [🤗RAG-Critic-3B](https://huggingface.co/dongguanting/RAG-Critic-3B)
-
-以下展示了我们的细致训练方式：
+The following shows our detailed training procedure:
 
 - **SFT bash:**
   
@@ -185,7 +161,7 @@ eval_steps: 500
 
 ---
 
-对于DPO数据，请您根据我们文章的设置基于我们的SFT数据集以及Error system进行采样构建，并且使用the previous version of [LlaMA-Factory](https://github.com/hiyouga/LLaMA-Factory/releases/tag/v0.6.3).
+For DPO data, please construct it based on our SFT dataset and error system settings, using the previous version of [LlaMA-Factory](https://github.com/hiyouga/LLaMA-Factory/releases/tag/v0.6.3).
 
 - **Coarse-to-Fine DPO bash:**
 
