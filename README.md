@@ -124,11 +124,13 @@ Furthermore, use GPT-4o and human for higher-level label summarization of the er
 
 ## 🚗 RAG Error-Critic Alignment
 
-We release our RAG Error-Critic SFT dataset and model weights:
+We release our RAG Error-Critic SFT dataset, model weights and demo:
 
 - **SFT Dataset:** We synthesize the first fine-grained error identification dataset, [🤗RAG-Error-Critic-100K](https://huggingface.co/datasets/dongguanting/RAG-Error-Critic-100K), by combining responses from 15 models across 9 RAG-related datasets with fine-grained error labels.
 
 - **Model Weights:** We released our RAG error identification model [🤗RAG-Critic-3B](https://huggingface.co/dongguanting/RAG-Critic-3B).
+
+- **Demo:** We release the huggingface inference demo of our RAG-Critic model [here]()
 
 The following shows our detailed training procedure:
 
@@ -217,7 +219,7 @@ deepspeed --num_gpus 8 train_bash.py \
 ### Data Preparation
 
 <details>
-<summary>🔍 Click here to generate the test set.</summary>
+<summary>🔍 Click here to reproduce the our test set construction pipeline.</summary>
 
 Firstly, using critic agent to obtain required correction path
 
@@ -297,7 +299,6 @@ python run_exp.sh
 
 We introduce the RAG-Error benchmark, aiming to make prediction judgment and fine-grained error recognition in RAG.
 
-
 ![image](https://github.com/user-attachments/assets/97c9a569-5712-499e-bcc3-d04df06ea307)
 
 
@@ -306,7 +307,7 @@ We introduce the RAG-Error benchmark, aiming to make prediction judgment and fin
 
 **Key-Value Introduction:**
 
-- **Input:** including three parts: User query + Top-K Document + LLM's prediction + 1st-tier error tag sets (all) + 2nd-tier erro tag sets (all)
+- **Input:** User query + Top-K Document + LLM's prediction + 1st-tier error tag sets (all) + 2nd-tier erro tag sets (all)
 - **Output:** Judgement, 1st-tier error tag sets (selected), 2nd-tier erro tag sets (selected)
 
 
