@@ -140,7 +140,7 @@ def get_rouge_scores(golden_text, output_text):
             "rouge-l": 0.0
         }
 
-file_path = 'your_path_to_result/predict_qwen-2.5-7b-instruct_predict_1900_130.json'  # change to the path of your predict JSON
+file_path = 'your_path_to_generated_result/predict_qwen-2.5-7b-instruct_predict_1900_130.json'  # change to the path of your predict JSON
 
 # 初始化总体指标统计
 total_stats = {
@@ -343,7 +343,7 @@ input_filename = file_path.split('/')[-1]
 base_filename = input_filename.replace('.json', '')
 
 # 构建输出文件路径
-output_path = f'/share/project/dgt/llama_factory_output/results/{base_filename}_metric_result.json'
+output_path = f'/your output path/{base_filename}_metric_result.json'
 
 # 将结果保存到JSON文件
 with open(output_path, 'w', encoding='utf-8') as f:
