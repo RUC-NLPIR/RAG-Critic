@@ -34,11 +34,11 @@
 
 ## 📌 Release
 
-[03/2025] We present a demo of RAG-Critic to showcase its efficient critic capabilities, try [`demo.ipynb`](https://github.com/dongguanting/RAG-Critic/blob/main/demo.ipynb)!
+**[03/2025]** We present a demo of RAG-Critic to showcase its efficient critic capabilities, try [`demo.ipynb`](https://github.com/dongguanting/RAG-Critic/blob/main/demo.ipynb)!
 
-[03/2025] We release our huggingface dataset [🤗RAG-Error-Critic-100K](https://huggingface.co/datasets/dongguanting/RAG-Error-Critic-100K) and Critic model [🤗RAG-Critic-3B](https://huggingface.co/dongguanting/RAG-Critic-3B)
+**[03/2025]** We release our huggingface dataset [🤗RAG-Error-Critic-100K](https://huggingface.co/datasets/dongguanting/RAG-Error-Critic-100K) and Critic model [🤗RAG-Critic-3B](https://huggingface.co/dongguanting/RAG-Critic-3B)
 
-[03/2025] Code and paper are publicly available.
+**[03/2025]** Code and paper are publicly available.
 
 
 ## 🔧 1. General Setup
@@ -339,6 +339,7 @@ bash test_close_llm.sh
 ```
 
 The format of each sample in your `RAG-Critic/rag_error_bench/test_data/baseline_test.json` are in the following form:
+
 <img width="614" alt="image" src="https://github.com/user-attachments/assets/4c19a234-c6d1-415c-9a4a-2e34afefafa5" />
 
 
