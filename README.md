@@ -354,8 +354,8 @@ Finally, we will provide detailed evaluation metric results of the RAG-Error ben
 
 <details>
 <summary>🔍 Here we illustrate the RAG-Error benchmark‘s evaluation metrics.</summary>
-```json
 
+```json
 {
   "overall": {
     "accuracy": 0.1194,  #Overall Acc.
@@ -629,8 +629,8 @@ Finally, we will provide detailed evaluation metric results of the RAG-Error ben
     }
   }
 }
-
 ```
+
 </details>
 
 
