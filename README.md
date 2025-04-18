@@ -647,7 +647,14 @@ Our dataset are distributed under the [CC BY-NC 4.0](https://creativecommons.org
 Please cite our work if you find the repository helpful.
 
 ```
-
+@misc{ragcritic,
+  author       = {Guanting Dong and Jiajie Jin and Xiaoxi Li and Yutao Zhu and Zhicheng Dou* and Ji-Rong Wen},
+  title        = {RAG-Critic: Leveraging Automated Critic-Guided Agentic Workflow for
+Retrieval Augmented Generation},
+  year         = {2025},
+  organization = {GitHub},
+  url          = {https://github.com/dongguanting/RAG-Critic},
+}
 ```
 
 
