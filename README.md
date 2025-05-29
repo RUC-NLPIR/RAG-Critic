@@ -649,11 +649,10 @@ Please cite our work if you find the repository helpful.
 ```
 @misc{ragcritic,
   author       = {Guanting Dong and Jiajie Jin and Xiaoxi Li and Yutao Zhu and Zhicheng Dou* and Ji-Rong Wen},
-  title        = {RAG-Critic: Leveraging Automated Critic-Guided Agentic Workflow for
-Retrieval Augmented Generation},
+  title        = {RAG-Critic: Leveraging Automated Critic-Guided Agentic Workflow for Retrieval Augmented Generation},
   year         = {2025},
   organization = {GitHub},
-  url          = {https://github.com/dongguanting/RAG-Critic},
+  url          = {https://github.com/RUC-NLPIR/RAG-Critic},
 }
 ```
 
