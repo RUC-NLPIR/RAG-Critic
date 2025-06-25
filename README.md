@@ -34,6 +34,8 @@
 
 ## 📌 Release
 
+**[05/2025]** Our paper has been accepted at ACL 2025 Main conference!
+
 **[03/2025]** We present a demo of RAG-Critic to showcase its efficient critic capabilities, try [`demo.ipynb`](https://github.com/dongguanting/RAG-Critic/blob/main/demo.ipynb)!
 
 **[03/2025]** We release our huggingface dataset [🤗RAG-Error-Critic-100K](https://huggingface.co/datasets/dongguanting/RAG-Error-Critic-100K) and Critic model [🤗RAG-Critic-3B](https://huggingface.co/dongguanting/RAG-Critic-3B)
