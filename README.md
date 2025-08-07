@@ -649,12 +649,29 @@ Our dataset are distributed under the [CC BY-NC 4.0](https://creativecommons.org
 Please cite our work if you find the repository helpful.
 
 ```
-@misc{ragcritic,
-  author       = {Guanting Dong and Jiajie Jin and Xiaoxi Li and Yutao Zhu and Zhicheng Dou* and Ji-Rong Wen},
-  title        = {RAG-Critic: Leveraging Automated Critic-Guided Agentic Workflow for Retrieval Augmented Generation},
+@inproceedings{dong2025ragcritic,
+  author       = {Guanting Dong and
+                  Jiajie Jin and
+                  Xiaoxi Li and
+                  Yutao Zhu and
+                  Zhicheng Dou and
+                  Ji{-}Rong Wen},
+  editor       = {Wanxiang Che and
+                  Joyce Nabende and
+                  Ekaterina Shutova and
+                  Mohammad Taher Pilehvar},
+  title        = {RAG-Critic: Leveraging Automated Critic-Guided Agentic Workflow for
+                  Retrieval Augmented Generation},
+  booktitle    = {Proceedings of the 63rd Annual Meeting of the Association for Computational
+                  Linguistics (Volume 1: Long Papers), {ACL} 2025, Vienna, Austria,
+                  July 27 - August 1, 2025},
+  pages        = {3551--3578},
+  publisher    = {Association for Computational Linguistics},
   year         = {2025},
-  organization = {GitHub},
-  url          = {https://github.com/RUC-NLPIR/RAG-Critic},
+  url          = {https://aclanthology.org/2025.acl-long.179/},
+  timestamp    = {Thu, 24 Jul 2025 21:25:39 +0200},
+  biburl       = {https://dblp.org/rec/conf/acl/DongJL0DW25.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
 }
 ```
 
