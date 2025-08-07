@@ -8,7 +8,7 @@
 
 
 <div align="center">
-<a href= target="_blank"><img src=https://img.shields.io/badge/arXiv-b5212f.svg?logo=arxiv height=25px></a>
+<a href= target="https://aclanthology.org/2025.acl-long.179.pdf"><img src=https://img.shields.io/badge/arXiv-b5212f.svg?logo=arxiv height=25px></a>
 <a href=https://huggingface.co/datasets/dongguanting/RAG-Error-Critic-100K target="_blank"><img src=https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face%20Dataset-276cb4.svg height=25px></a>
 <a href=https://huggingface.co/dongguanting/RAG-Critic-3B target="_blank"><img src=https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face%20Model-276cb4.svg height=25px></a>
 <a href=https://github.com/dongguanting/RAG-Critic/blob/main/demo.ipynb target="_blank"><img src= https://img.shields.io/badge/Demo-8f2628.svg?logo=googlecolab height=25px></a>
